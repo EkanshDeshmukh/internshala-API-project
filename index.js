@@ -14,7 +14,7 @@ app.use(logger('tiny'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-app.use('/', require('./routes/indexRoute') )
+app.use('/', require('./routes/indexRoute'))
 
 //error Handling
 const {generatedError} = require('./middlewares/error')
