@@ -8,7 +8,7 @@ exports.homepage = catchAsyncError(async (req, res, next) => {
 
 exports.studentsignup = catchAsyncError(async (req, res, next) => {
   const student = await new Student(req.body).save();
-  res.status(201).json(student);
+  sendtoken(student, 201, res);
 });
 
 exports.studentsignin = catchAsyncError(async (req, res, next) => {
