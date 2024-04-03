@@ -1,6 +1,7 @@
 const { catchAsyncError } = require("../middlewares/catchAsyncError");
 const Student = require("../models/studentModel");
 const ErrorHandler = require("../utils/errorHandler");
+const {sendtoken} = require('../utils/sendToken')
 
 exports.homepage = catchAsyncError(async (req, res, next) => {
   res.json({ message: "homepage" });
@@ -9,6 +10,7 @@ exports.homepage = catchAsyncError(async (req, res, next) => {
 exports.studentsignup = catchAsyncError(async (req, res, next) => {
   const student = await new Student(req.body).save();
   sendtoken(student, 201, res);
+  //res.status(200).json(Student)
 });
 
 exports.studentsignin = catchAsyncError(async (req, res, next) => {
