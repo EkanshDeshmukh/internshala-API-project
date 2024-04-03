@@ -1,10 +1,15 @@
 const { catchAsyncError } = require("../middlewares/catchAsyncError");
 const Student = require("../models/studentModel");
 const ErrorHandler = require("../utils/errorHandler");
-const {sendtoken} = require('../utils/sendToken')
+const { sendtoken } = require("../utils/sendToken");
 
 exports.homepage = catchAsyncError(async (req, res, next) => {
   res.json({ message: "homepage" });
+});
+
+exports.currentUser = catchAsyncError(async (req, res, next) => {
+  const student = await Student.findById(req.id).exec();
+  res.json({ student });
 });
 
 exports.studentsignup = catchAsyncError(async (req, res, next) => {
@@ -26,5 +31,6 @@ exports.studentsignin = catchAsyncError(async (req, res, next) => {
 });
 
 exports.studentsignout = catchAsyncError(async (req, res, next) => {
-  res.json({ message: "You are logout !" });
+  res.clearCookie("token");
+  res.json({ message: "Successfully  signed out" });
 });

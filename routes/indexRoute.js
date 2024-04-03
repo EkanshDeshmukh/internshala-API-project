@@ -1,16 +1,20 @@
 const express = require('express');
-const { homepage, studentsignup,  studentsignin, studentsignout} = require('../controllers/indexController');
+const { homepage, currentUser ,studentsignup,  studentsignin, studentsignout} = require('../controllers/indexController');
+const { isAuthenticated } = require('../middlewares/auth');
 const router = express.Router();
 
 //GET /
-router.get('/', homepage);
+router.get('/', isAuthenticated, homepage);
+
+router.post('/student', isAuthenticated, currentUser);
+
 
 //POST
  router.post('/student/signup', studentsignup);
 
  router.post('/student/signin', studentsignin);
 
- router.post('/student/signout', studentsignout);
+ router.get('/student/signout', isAuthenticated,studentsignout);
 
  
 
